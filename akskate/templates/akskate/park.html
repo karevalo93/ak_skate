@@ -1,0 +1,51 @@
+{% extends "akskate/base.html" %} 
+
+{% block title %} 
+    Spot
+{% endblock %} 
+
+{% block main %}
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'akskate/park.css' %}">
+
+    <br>
+    <br>
+
+    <div class="containers">
+        <div class="row">
+            <div class="col-sm-6">
+                <div id="carousel" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                        {% for img in images %}
+                            {% if img.spot == spot%}
+                            <div class="item active">
+                                <img src="{% static 'img/'%}{{ img.name }}">
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div> 
+            </div> 
+
+            <div class="col-sm-6">
+                <br>
+                <h2>{{ spot.name }}</h2>
+                <br>
+                <br>
+                <p class="desc">{{spot.description}}</p>
+                <br>
+                <h3>Horario</h3>
+                <br>
+                <p>{{spot.schedule}}</p>
+                <br>
+                <h4><a href="http://127.0.0.1:5000/">Chat del spot</a></h4>
+                <br>
+                <h4><a href="{{spot.direction}}">Ver en maps</a></h4>
+            </div> 
+        </div> 
+    </div>
+    <br>
+    <br>
+    <br>
+{% endblock %}

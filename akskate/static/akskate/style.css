@@ -1,0 +1,51 @@
+*{
+    font-family: 'Bangers', cursive;
+  }
+
+h1, h4 {
+    color: darkslategray;
+}
+
+.card {
+    margin: 9%;
+    margin-top: 20%;
+}
+
+.col-8 {
+    padding: 5rem;
+}
+
+img {
+    width: 100%;
+    
+}
+
+.colorgray {
+    color: darkslategray;
+    font-size: 20px;
+}
+
+iframe {
+    width: 100%;
+    margin-top: 5%;
+}
+
+.col-4 {
+    background-color: black;
+    margin-top: 5rem;
+}
+
+@media only screen and (max-width: 767px){
+    .col-4 {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 599px){
+    #table tr {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+

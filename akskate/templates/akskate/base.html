@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'akskate/nav.css' %}">
+    <link rel="stylesheet" href="{% static 'akskate/style.css' %}">
+    
+    <link href="{% static 'akskate/favicon.ico' %}" rel="icon">
+
+    <title>{% block title %}{% endblock %}</title>
+    
+</head>
+<body>
+
+    <header class="header">
+        <div class="container logo-nav-container">
+            <a href="{% url 'landing' %}" class="logo"><img src="{% static 'akskate/logo.png' %}" alt=""></a>
+            <span class="menu-icon">Menú</span>
+            <nav class="menu">
+                {% if request.user.is_authenticated %}
+                <ul>
+                    <li><a href="{% url 'landing' %}">Inicio</a></li>
+                    <li><a href="{% url 'localidad' %}">Spots</a></li>
+                    <li><a href="{% url 'store' %}">Tienda</a></li>
+                    <li><a href="{% url 'cart' %}"><i class="fas fa-cart-plus"></i> ({{ count }})</a></li>
+
+                    <li>{{ request.user }}</li>
+                    <li><a href="{% url 'logout' %}">Logout</a></li>
+                </ul>
+                {% else %}
+                <ul>
+                    <li><a href="{% url 'landing' %}">Inicio</a></li>
+                    <li><a href="{% url 'localidad' %}">Spots</a></li>
+                    <li><a href="{% url 'store' %}">Tienda</a></li>
+                    <li><a href="{% url 'login' %}">Ingresa</a></li>
+                </ul>
+                {% endif %}
+            </nav>
+        </div>
+    </header>
+
+        {% block main %}
+        {% endblock %}
+
+    <footer style="background-image: url('https://static.brusheezy.com/system/resources/previews/000/013/939/non_2x/grunge-texture-by-krist-photoshop-textures.jpg');">
+
+        <div class="container wrap">
+
+            <div class="row">
+                <div class="column">
+                    <div class="footer-widget"><br>
+                        <h2 class="widget-title">Contact</h2>
+
+                        <div class="contact-address">
+                            <i class="fas fa-map-marker-alt"></i>Address : Cra 100a #61 - 15
+                        </div>
+
+                        <div class="contact-number">
+                            <i class="fas fa-phone-square-alt"></i>Phone : +57 3022387866
+                        </div>
+
+                        <div class="contact-email">
+                            <i class="fas fa-envelope"></i>Email: kevin.arevalo.l@hotmail.com
+                        </div>
+
+                       <!-- <div class="social-widget">
+                            <a href="#"><i class="fab fa-facebook-square"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                        </div>-->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    
+    <div class="copyright">
+        <div class="container">
+            <p>Copyright © <script type="text/javascript">document.write(new Date().getFullYear());</script>
+            All rights reserved | Design made with <i class="fas fa-heart"></i> by <a href="#" target="_blank">AK SKATE DEV</a></p>
+        </div>
+    </div>
+
+    </footer> 
+    <script src="https://kit.fontawesome.com/619fbefa7c.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
+    <script src="{% static 'akskate/menu.js' %}"></script>
+    <!--Funcion de Añadir al carrito-->
+    <script>
+        function add_item(item_name, item_price) {
+            modal = document.querySelector("#contents");
+            // Campos de formulario ocultos para pasar valor
+            modal.innerHTML = `
+                <input type="hidden" name="name" id="name" value="${item_name}">
+                <input type="hidden" name="item_price" id="item_price" value="${item_price}">
+            `;
+
+            // Item name
+            modal.innerHTML += `
+                <label style="font-weight: 500;">${item_name}</label>`;
+            modal.innerHTML += `<br><label style="font-weight: 500;"> - $${item_price}</label>`;
+            
+            modal.innerHTML += `
+              <hr>
+              <button type="submit" class="btn btn-sm btn-link">
+                <i class="fas fa-shopping-cart"></i>
+              </button>
+          `;
+            $("#add_items_modal").modal('show');
+        }
+  
+    </script>
+
+    <!--funcionamiento del subject-->
+    <script>
+    let activeIndex = 0
+    let limit = 0
+    let disabled = false
+    let $stage
+    let $controls
+    let canvas = false
+    
+    const SPIN_FORWARD_CLASS = 'js-spin-fwd'
+    const SPIN_BACKWARD_CLASS = 'js-spin-bwd'
+    const DISABLE_TRANSITIONS_CLASS = 'js-transitions-disabled'
+    const SPIN_DUR = 1000
+    
+    const appendControls = () => {
+      for (let i = 0; i < limit; i++) {
+        $('.carousel__control').append(`<a href="#" data-index="${i}"></a>`)
+      }
+      let height = $('.carousel__control').children().last().outerHeight()
+      
+      $('.carousel__control').css('height', (30 + (limit * height)))
+      $controls = $('.carousel__control').children()
+      $controls.eq(activeIndex).addClass('active')
+    }
+    
+    const setIndexes = () => {
+        $('.spinner').children().each((i, el) => {
+            $(el).attr('data-index', i)
+            limit++
+        })
+    }
+    
+    const duplicateSpinner = () => {
+        const $el = $('.spinner').parent()
+        const html = $('.spinner').parent().html()
+        $el.append(html)
+        $('.spinner').last().addClass('spinner--right')
+        $('.spinner--right').removeClass('spinner--left')
+    }
+    
+    const paintFaces = () => {
+        $('.spinner__face').each((i, el) => {
+            const $el = $(el)
+            let color = $(el).attr('data-bg')
+            $el.children().css('backgroundImage', `url(${getBase64PixelByColor(color)})`)
+        })
+    }
+    
+    const getBase64PixelByColor = (hex) => {
+        if (!canvas) {
+            canvas = document.createElement('canvas')
+            canvas.height = 1
+            canvas.width = 1
+        }
+        if (canvas.getContext) {
+            const ctx = canvas.getContext('2d')
+            ctx.fillStyle = hex
+            ctx.fillRect (0, 0, 1, 1)
+            return canvas.toDataURL()
+        }
+        return false
+    }
+    
+    const prepareDom = () => {
+        setIndexes()
+        paintFaces()
+        duplicateSpinner()
+        appendControls()
+    }
+    
+    const spin = (inc = 1) => {
+        if (disabled) return
+        if (!inc) return
+        activeIndex += inc
+        disabled = true
+    
+        if (activeIndex >= limit) {
+            activeIndex = 0
+        }
+      
+        if (activeIndex < 0) {
+            activeIndex = (limit - 1)
+        }
+    
+        const $activeEls = $('.spinner__face.js-active')
+        const $nextEls = $(`.spinner__face[data-index=${activeIndex}]`)
+        $nextEls.addClass('js-next')
+      
+        if (inc > 0) {
+          $stage.addClass(SPIN_FORWARD_CLASS)
+        } else {
+          $stage.addClass(SPIN_BACKWARD_CLASS)
+        }
+        
+        $controls.removeClass('active')
+        $controls.eq(activeIndex).addClass('active')
+      
+        setTimeout(() => {
+            spinCallback(inc)
+        }, SPIN_DUR, inc)
+    }
+    
+    const spinCallback = (inc) => {
+        
+        $('.js-active').removeClass('js-active')
+        $('.js-next').removeClass('js-next').addClass('js-active')
+        $stage
+            .addClass(DISABLE_TRANSITIONS_CLASS)
+            .removeClass(SPIN_FORWARD_CLASS)
+            .removeClass(SPIN_BACKWARD_CLASS)
+      
+        $('.js-active').each((i, el) => {
+            const $el = $(el)
+            $el.prependTo($el.parent())
+        })
+        setTimeout(() => {
+            $stage.removeClass(DISABLE_TRANSITIONS_CLASS)
+            disabled = false
+        }, 100)
+    
+    }
+    
+    const attachListeners = () => {
+      
+        document.onkeyup = (e) => {
+            switch (e.keyCode) {
+                case 38:
+                    spin(-1)
+                    break
+                case 40:
+                    spin(1)
+                    break
+                }
+        }
+     
+        $controls.on('click', (e) => {
+          e.preventDefault()
+          if (disabled) return
+          const $el = $(e.target)
+          const toIndex = parseInt($el.attr('data-index'), 10)
+          spin(toIndex - activeIndex)
+          
+        })
+    }
+    
+    const assignEls = () => {
+        $stage = $('.carousel__stage')
+    }
+    
+    const init = () => {
+        assignEls()
+        prepareDom()
+        attachListeners()
+    }
+    
+    
+    $(() => {
+        init();
+    });
+    </script>
+    
+
+  
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  
+
+</body>
+</html>

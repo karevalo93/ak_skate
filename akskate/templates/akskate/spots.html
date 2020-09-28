@@ -1,0 +1,29 @@
+{% extends "akskate/base.html" %} 
+
+{% block title %} 
+    Spots
+{% endblock %} 
+
+{% block main %}
+
+{% load static %}
+    <link rel="stylesheet" href="{% static 'akskate/spot.css' %}">
+    
+    <div class="container">
+        <main class="grid">
+            {% for spot in spots %}
+                    <article>
+                        <img src="{% static 'img/'%}{{ spot.imagen }}" alt="">
+                        <div class="text">
+                            <h3>{{ spot }}</h3>
+                            <p>{{spot.summary}}</p>
+                            <a href="{% url 'park' name_park=spot.name %}">
+                                <button>{{spot.name}}</button>
+                            </a>                
+                        </div>
+                    </article>
+            {% endfor%}
+        </main>
+    </div>
+
+{% endblock %}

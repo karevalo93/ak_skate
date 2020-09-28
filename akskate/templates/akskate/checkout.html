@@ -1,0 +1,61 @@
+{% extends "akskate/base.html" %} 
+
+{% load humanize %} 
+
+{% block title %} 
+    Pago
+{% endblock %} 
+
+{% block main %}
+
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'akskate/ckt.css' %}">
+<br><br>
+
+<div class='row'>
+    <div class="col-lg-4">
+        <div class="jumbotron box-element" id="form-wrapper">
+            <form id="form" action="{% url 'checkout' %}" method="POST">
+                {% csrf_token %}
+                <div id="shipping-info">
+                    <h3>Información de Envio</h3><br>
+                    <div class="form-field">
+                        <input class="form-control" type="text" name="address" placeholder="Dirección" id="address" required autocomplete="off" autofocus>
+                    </div>
+                    <div class="form-field">
+                        <input class="form-control" type="text" name="city" placeholder="Ciudad" id="city" required autocomplete="off" autofocus>
+                    </div>
+                    <div class="form-field">
+                        <input class="form-control" type="text" name="department" placeholder="Departamento" id="department" required autocomplete="off" autofocus>
+                    </div>
+                </div><br>
+                <button type="submit" class="btn btn-outline-warning">Continue</button>
+            </form>
+            <br>
+        </div>
+
+
+    </div>
+
+    <div class='col-lg-7 order'>
+        <br>
+        <a href="{% url 'cart' %}">
+            <button type="button"class="btn btn-outline-warning">
+            Volver al carro
+            </button>
+        </a>
+            <h2>Pago</h2>
+            <h4>Orden </h4>
+            <ul class='order-list'>
+                {% for item in cart %}
+                    <li><h4>{{ item.cart_item }}</h4><h5>${{ item.item_price|intcomma }}</h5></li>
+                {% endfor %}   
+            </ul>
+            <h4>Productos en el carrito: {{ count }}</h4>
+            <h5 class='total'>Total</h5><h1>$ {{ order_total|intcomma }}</h1>
+        </div>
+</div>
+<br><br>
+
+{% endblock %}

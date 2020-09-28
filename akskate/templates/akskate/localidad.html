@@ -1,0 +1,28 @@
+{% extends "akskate/base.html" %} 
+
+{% block title %} 
+  Localidades
+{% endblock %} 
+
+{% block main %}
+
+{% load static %}
+    <link rel="stylesheet" href="{% static 'akskate/spot.css' %}">
+    
+    
+    <div class="container">
+        <main class="grid">
+            {% for localidad in localidades %}
+            <article>
+                <img src="{% static 'img/'%}{{ localidad.imagen }}" alt=""><br><br>
+                <div class="text">
+                    <h3>{{ localidad }}</h3>
+                    <p>{{localidad.summary}}</p>
+                    <a href="{% url 'spots' name_loc=localidad.name %}"><button>{{ localidad }}</button></a>               
+                </div>
+            </article>
+            {% endfor%}
+        </main>
+    </div>
+
+{% endblock %}

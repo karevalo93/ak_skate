@@ -1,0 +1,144 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
+
+* h1,h2,h3,h4,h5,h6{
+  font-family: 'Bangers', cursive;
+}
+* p{
+  font-family: 'Open Sans', sans-serif;
+  text-transform: lowercase;
+}
+
+.flex-row {
+  -webkit-box-orient: horizontal !important;
+  -webkit-box-direction: normal !important;
+  -ms-flex-direction: row !important;
+  flex-direction: row !important;
+}
+ 
+.row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+}
+.parallax-completo{
+  width: 100%;
+  height: 50vh;
+  margin: 0;
+  padding: 0;
+  background-image: url(https://static.brusheezy.com/system/resources/previews/000/013/939/non_2x/grunge-texture-by-krist-photoshop-textures.jpg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.reflex h1{
+  color: #fdd835;
+}
+
+.reflex{
+  font-size: 20px;
+  background-color: transparent;
+  color: #fff;
+  height: 45vh;
+  width: 100%;
+  padding: 0px 10px 0 10px;
+}
+
+
+.backgroundFull {
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.quarter-section {
+  height: 25vw;
+}
+
+.capa{
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+  visibility: visible;
+  text-align: center;
+}
+.capa > h1{
+  color: #ffffff;
+  margin-top: 120px;
+}
+
+.a:hover  .capa{
+  opacity: 0;
+  visibility: hidden;
+}
+
+
+
+.b:hover  .capa{
+  opacity: 0;
+  visibility: hidden;
+}
+
+
+.c:hover  .capa{
+  opacity: 0;
+  visibility: hidden;
+}
+
+
+.d:hover  .capa{
+  opacity: 0;
+  visibility: hidden;
+}
+
+
+.carousel a:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+@media (max-width: 991px){
+  .quarter-section {
+      height: 50vw;
+  }
+
+}
+
+@media (max-width: 575px){
+  .quarter-section {
+      height: 100vw;
+  }
+
+  .parallax-completo{
+    width: 100%;
+    height: 70vh;
+    margin: 0;
+    padding: 0;
+    background-image: url(https://static.brusheezy.com/system/resources/previews/000/013/939/non_2x/grunge-texture-by-krist-photoshop-textures.jpg);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  .reflex{
+    font-size: 16px;
+    background-color: transparent;
+    color: #fff;
+    height: 45vh;
+    width: 100%;
+  }
+}

@@ -1,0 +1,21 @@
+h3, td, h6{
+  color: #fff;
+  letter-spacing: 2px;
+}
+
+th, h4{
+  color: #fdd835;
+  letter-spacing: 3px;
+}
+
+.jumbotron{
+  background-color: rgb(71, 71, 71);
+}
+
+body{
+  background-image: url(https://www.allcitycanvas.com/wp-content/uploads/2017/08/bbbbskatecc.jpg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}

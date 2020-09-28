@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        h1{
+            color: orangered;
+            font-size: 26px;
+        }
+
+        p{
+            color: orangered;
+            font-size: 18px;
+        }
+
+        h5{
+            color: orangered;
+            font-size: 16px;
+        }
+        li, sup{
+            color: orangered;
+            font-size: 14px;
+        }
+
+    </style>
+
+</head>
+<body>
+    <h1>Hola</h1>
+    {% if count != 0 %}
+    <p>
+        Su pedido ha sido realizado con éxito!
+    </p>
+
+    <h5><strong> Usted ordeno: </strong></h5>
+    {% for item in cart %}
+    <tr>
+        <td>
+            <li>{{ item.cart_item }}<br>
+            </li>
+        </td>
+    </tr>
+    {% endfor %}
+    <p>
+        <h5><strong>El total de su orden: $ {{ order_total }}</strong></h5>
+    </p><br>
+
+    {% endif %}
+    <p> 
+        Gracias por visitarnos! <br><br> ¡Esperamos que tengas un buen día!
+    </p>
+
+</body>
+</html>

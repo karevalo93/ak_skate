@@ -1,0 +1,42 @@
+body{
+    background-image: url(https://www.allcitycanvas.com/wp-content/uploads/2017/08/bbbbskatecc.jpg);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+.jumbotron{
+    background-image: url(https://static.brusheezy.com/system/resources/previews/000/013/939/non_2x/grunge-texture-by-krist-photoshop-textures.jpg);
+
+    width: 380px;
+    height: 480px;
+    position: relative;
+    margin: 6% auto;
+}
+
+.jumbotron a{
+    color: #fdd835;
+}
+
+.jumbotron .btn{
+    color: #fdd835;
+}
+
+.jumbotron .btn:hover{
+    color: #fff;
+}
+
+.jumbotron #username, #password, #first_name, #last_name, #email {
+    background-color: transparent;
+    color: #fdd835;
+    text-transform: lowercase;
+    
+}
+
+.d-flex{
+    color: #fff;
+}
+.hero {
+    height: 100%;
+    width: 100%;
+}

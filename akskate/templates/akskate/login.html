@@ -1,0 +1,82 @@
+{% extends "akskate/base.html" %}
+
+<!-- Title -->
+{% block title %} Log In {% endblock%}
+
+<!-- Body -->
+{% block main %}
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'akskate/login.css' %}">
+
+<div class="row-1">
+        
+    <div class="col hero"><br>
+        {% if message %}
+        <div class="alert alert-success">{{ message }}</div>
+        {% endif %}
+        {% if messages %}
+        <div class="row">
+            <div class="col-lg-4"></div>
+            <div class="col-lg-4">
+                {% for message in messages %}
+                    <div class="alert alert-danger {% if message.tags %}alert-{{ message.tags }}{% endif %} popup"role="alert">{{ message }}</div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+        <div class="jumbotron jumbotron1">
+            <form action="{% url 'login' %}" method="POST">
+                {% csrf_token %}
+                <!-- Username -->
+                <div class="form-group">
+                    <input
+                        type="text"
+                        id="username"
+                        name="username"
+                        class="form-control"
+                        placeholder="Nombre de Usuario"
+                        required
+                        autocomplete="off"
+                        autofocus
+                    />
+                </div><br>
+                <!-- Password -->
+                <div class="form-group">
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        class="form-control"
+                        placeholder="Contraseña"
+                        required
+                    />
+                </div><br>
+                <!-- Log In button -->
+                <button type="submit" class="btn btn-outline-warning">
+                    Log In
+                </button>
+            </form><br>
+
+            <div class="mt-4">
+                <div class="d-flex justify-content-center links">
+                    ¿No tienes una cuenta?
+                    <a href="{% url 'register' %}" class="ml-2">Regístrate</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Cookie para el usuario -->
+<script>
+
+    document.querySelector('form').onsubmit = () => {
+        document.cookie =
+        'cookie_username=' + encodeURIComponent(document.querySelector('#username').value) +
+        '; max-age=' + 60*15 +
+        '; path=/; domain=127.0.0.1' ; 
+    }
+</script>
+
+{% endblock %}

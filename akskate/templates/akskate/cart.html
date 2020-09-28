@@ -1,0 +1,86 @@
+{% extends "akskate/base.html" %} 
+
+
+{% load humanize %} 
+
+{% block title %} 
+    cart 
+{% endblock %} 
+
+{% block main %} 
+{% load static %}
+<link rel="stylesheet" href="{% static 'akskate/cart.css' %}">
+
+<br>
+
+{% if messages %}
+<div class="row">
+    <div class="col-lg-4"></div>
+    <div class="col-lg-4">
+        {% for message in messages %}
+            <div class="alert alert-warning {% if message.tags %}alert-{{ message.tags }}{% endif %} popup"role="alert">{{ message }}</div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+<div class="row"><br><br>
+    <!-- Cart -->
+    {% if count == 0 %}
+    <div class="col-lg-3"></div>
+    <div class="col-lg-6">
+        <div class="jumbotron item_list">
+            <h3>No hay productos en el carrito.</h3>
+            <a href="{% url 'store' %}"><h5>Agregar articulos ahora</h5></a>
+        </div>
+    </div>
+    {% else %}
+    <div class="col-lg-6">
+        <div class="jumbotron item_list">
+            <h3>Productos en el carrito: {{ count }}</h3>
+            <table class="table table-striped">
+                <thead>
+                    <th>Producto</th>
+                    <th>Precio</th>
+                    <th>Remover</th>
+                </thead>
+                <tbody>
+                    {% for item in cart %}
+                    <tr>
+                        <td>{{ item.cart_item }}</td>
+                        <td>${{ item.item_price|intcomma}}</td>
+                        <td>
+                            <form action="{% url 'remove_item' %}" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="item_id" id="item_id" value="{{ item.id }}">
+                                <input type="hidden" name="item_price" id="item_price" value="{{ item.item_price }}">
+                                <button type="submit" class="btn btn-sm btn-link">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Place Order -->
+    <div class="col-lg-6">
+        <div class="jumbotron order">
+            <h4><strong>Total del carrito: ${{ order_total|intcomma }}</strong></h4>
+            <h6>Haz tu pedido ahora!</h6>
+            <br />
+            <!-- Button to Open the Modal -->
+            <a href="{% url 'checkout' %}"><button type="button"class="btn btn-outline-warning"data-toggle="modal"data-target="#myModal">
+                Confirmar pedido
+            </button></a>
+            <a href="{% url 'store' %}"><button type="button"class="btn btn-outline-warning">
+                Seguir comprando
+            </button></a>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

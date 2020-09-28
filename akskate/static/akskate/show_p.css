@@ -1,0 +1,29 @@
+.carousel {
+    margin-top: 20px;
+}
+.item .thumb {
+	width: 25%;
+	cursor: pointer;
+	float: left;
+}
+.item .thumb img {
+	width: 100%;
+	margin: 2px;
+}
+.item img {
+	width: 100%;	
+}
+
+
+#pa_medida{
+	border-color: #fdd835;
+	font-size: 20px;
+	height: 52px;
+    width: 60%;
+	font-weight: bold;
+}
+
+
+#precio{
+	font-size: 25px;
+}

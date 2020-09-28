@@ -1,0 +1,57 @@
+{% extends "akskate/base.html" %} 
+
+{% load humanize %} 
+
+{% block title %} 
+    {{item.name}}
+{% endblock %} 
+
+{% block main %}
+
+
+{% load static %}
+    <link rel="stylesheet" href="{% static 'akskate/show_p.css' %}">
+    <br><br>
+    <!-- El modo para agregar elementos -->
+    <div class="modal fade" id="add_items_modal">
+        <div class="modal-dialog modal-sm modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <form action="{% url 'add_item' %}" method="POST">
+                        {% csrf_token %}
+                        <div id="contents"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <div id="carousel" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="item active">
+                            <img src="{% static 'img/'%}{{ item.image }}">
+                        </div>
+                    </div>
+                </div> 
+            </div> 
+
+            <div class="col-sm-6">
+                <h2>{{item.name}}</h2><br><br>
+                <p id="precio">Precio : ${{item.price|intcomma}}</p>  <br><br><br>  
+               <br><br>
+                {% if request.user.is_authenticated %}
+                    <a class="cart  btn btn-warning" title="Add Item"  onclick="add_item('{{ item.name }}', '{{ item.price}}');">Añadir</a>
+                {% else %}
+                <P>
+                    Para Agregar este Item al carrito de compras, primero debes <a href="{% url 'login' %}">iniciar sesion</a>
+                </P>
+                {% endif %}
+            </div> 
+        </div> 
+    </div>
+     <br><br><br>
+
+{% endblock %}
